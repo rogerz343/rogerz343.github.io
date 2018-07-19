@@ -1,0 +1,43 @@
+body {
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    margin-top: 16vh;
+    width: 100%;
+    text-align: center;
+}
+
+.big-letter {
+    display: inline-block;
+    font-size: 96pt;
+    font-weight: bold;
+    margin-left: 32pt;
+    margin-right: 32pt;
+}
+
+#name_r1 {
+    color: #ff3838;
+    transform: rotate(336deg);
+}
+
+#name_o {
+    color: #ffa500;
+    transform: rotate(0deg);
+}
+
+#name_g {
+    color: #808000;
+    transform: rotate(6deg);
+}
+
+#name_e {
+    color: #00b0f0;
+    transform: rotate(348deg);
+}
+
+#name_r2 {
+    color: #92d050;
+    transform: rotate(356deg);
+}
