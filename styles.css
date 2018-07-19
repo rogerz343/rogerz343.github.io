@@ -3,7 +3,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-header {
+/* not sure this is necessary */
+#main-container {
+    width: 100%
+}
+
+#name-header {
     margin-top: 16vh;
     width: 100%;
     text-align: center;
@@ -40,4 +45,22 @@ header {
 #name_r2 {
     color: #92d050;
     transform: rotate(356deg);
+}
+
+.main-nav-bar {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+.main-nav-bar li {
+    display: inline-block;
+    padding-left: 12pt;
+    padding-right: 12pt;
+}
+
+.main-nav-bar li a {
+    font-size: 24pt;
+    color: #808080;
+    text-decoration: none;
 }
