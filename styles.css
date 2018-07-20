@@ -4,13 +4,14 @@ body {
 }
 
 /* not sure this is necessary */
-#main-container {
-    width: 100%
+.main-container {
+    margin-top: 16vh;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #name-header {
-    margin-top: 16vh;
-    width: 100%;
     text-align: center;
 }
 
@@ -18,8 +19,8 @@ body {
     display: inline-block;
     font-size: 96pt;
     font-weight: bold;
-    margin-left: 32pt;
-    margin-right: 32pt;
+    margin-left: 24pt;
+    margin-right: 24pt;
 }
 
 #name_r1 {
@@ -47,19 +48,61 @@ body {
     transform: rotate(356deg);
 }
 
-.main-nav-bar {
+.nav-bar-vert {
+    float: left;
+}
+
+.nav-bar-vert li {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 0.6; }
+}
+
+.nav-bar-vert li:nth-child(1) img {
+    animation-delay: 0s;
+}
+
+.nav-bar-vert li:nth-child(2) img {
+    animation-delay: 0.2s;
+}
+
+.nav-bar-vert li:nth-child(3) img {
+    animation-delay: 0.4s;
+}
+
+li a img {
+    background: #ffffff;
+    opacity: 0;
+    animation: fade-in 2s;
+    animation-fill-mode: forwards;
+    transition: opacity 0.5s;
+}
+
+li a img:hover {
+    opacity: 1.0;
+    animation-fill-mode: none;
+    transition: opacity 0.5s;
+}
+
+.nav-bar-horiz {
+    display: inline-block;
     width: 100%;
     margin: auto;
     text-align: center;
 }
 
-.main-nav-bar li {
+.nav-bar-horiz li {
     display: inline-block;
     padding-left: 12pt;
     padding-right: 12pt;
 }
 
-.main-nav-bar li a {
+.nav-bar-horiz li a {
     font-size: 24pt;
     color: #808080;
     text-decoration: none;
