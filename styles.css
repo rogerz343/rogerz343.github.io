@@ -3,16 +3,22 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-/* not sure this is necessary */
 .main-container {
     margin-top: 16vh;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+}
+
+.container {
+    display: inline-block;
+}
+
+.banner {
+    float: left;
 }
 
 #name-header {
-    text-align: center;
+    text-align: left;
+    width: 600pt;   /* used to slightly offset text */
 }
 
 .big-letter {
@@ -77,21 +83,19 @@ body {
 
 li a img {
     background: #ffffff;
-    opacity: 0;
+    opacity: 0.6;
     animation: fade-in 2s;
-    animation-fill-mode: forwards;
     transition: opacity 0.5s;
+    transition-timing-function: ease-in;
 }
 
 li a img:hover {
     opacity: 1.0;
-    animation-fill-mode: none;
     transition: opacity 0.5s;
 }
 
 .nav-bar-horiz {
-    display: inline-block;
-    width: 100%;
+    float: left;
     margin: auto;
     text-align: center;
 }
@@ -104,6 +108,14 @@ li a img:hover {
 
 .nav-bar-horiz li a {
     font-size: 24pt;
-    color: #808080;
+    font-weight: bold;
+    color: #222222;
     text-decoration: none;
+    opacity: 0.6;
+}
+
+.nav-bar-horiz li a:hover {
+    opacity: 0.9;
+    font-weight: bold;
+    transition: opacity 0.5s;
 }
