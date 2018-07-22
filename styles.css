@@ -119,3 +119,7 @@ li a img:hover {
     font-weight: bold;
     transition: opacity 0.5s;
 }
+
+#other {
+    background-image: url("./imgs/penguin_background.png")
+}
