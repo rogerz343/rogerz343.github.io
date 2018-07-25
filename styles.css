@@ -1,5 +1,4 @@
 body {
-    font-family: 'Lato', sans-serif;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -16,7 +15,11 @@ body {
     float: left;
 }
 
-#name-header {
+#big-name-header {
+    margin-top: 16pt;
+    margin-bottom: 16pt;
+    margin-left: 16pt;
+    margin-right: 16pt;
     text-align: left;
     width: 600pt;   /* used to slightly offset text */
 }
@@ -64,6 +67,12 @@ body {
     margin-bottom: 16px;
 }
 
+.nav-bar-vert li a:hover {
+    opacity: 0.9;
+    font-weight: bold;
+    transition: opacity 0.5s;
+}
+
 @keyframes fade-in {
     from { opacity: 0; }
     to { opacity: 0.6; }
@@ -94,32 +103,10 @@ li a img:hover {
     transition: opacity 0.5s;
 }
 
-.nav-bar-horiz {
-    float: left;
-    margin: auto;
-    text-align: center;
+.main-text {
+    margin-left: 16pt;
 }
 
-.nav-bar-horiz li {
-    display: inline-block;
-    padding-left: 12pt;
-    padding-right: 12pt;
-}
-
-.nav-bar-horiz li a {
-    font-size: 24pt;
-    font-weight: bold;
-    color: #222222;
-    text-decoration: none;
-    opacity: 0.6;
-}
-
-.nav-bar-horiz li a:hover {
-    opacity: 0.9;
-    font-weight: bold;
-    transition: opacity 0.5s;
-}
-
-#other {
-    background-image: url("./imgs/penguin_background.png")
+.main-text p {
+    text-align: left;
 }
