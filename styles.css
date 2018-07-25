@@ -90,6 +90,10 @@ body {
     animation-delay: 0.4s;
 }
 
+.nav-bar-vert li:nth-child(3) img {
+    animation-delay: 0.6s;
+}
+
 li a img {
     background: #ffffff;
     opacity: 0.6;
