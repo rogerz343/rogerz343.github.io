@@ -1,27 +1,21 @@
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #ccffff;
 }
 
 .main-container {
+    width: 800px;
     margin-top: 16vh;
-    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .container {
     display: inline-block;
 }
 
-.banner {
-    float: left;
-}
-
 #big-name-header {
-    margin-top: 16pt;
-    margin-bottom: 16pt;
-    margin-left: 16pt;
-    margin-right: 16pt;
-    text-align: left;
-    width: 600pt;   /* used to slightly offset text */
+    display: inline-block;
 }
 
 .big-letter {
@@ -95,7 +89,6 @@ body {
 }
 
 li a img {
-    background: #ffffff;
     opacity: 0.6;
     animation: fade-in 2s;
     transition: opacity 0.5s;
@@ -108,9 +101,16 @@ li a img:hover {
 }
 
 .main-text {
-    margin-left: 16pt;
+    padding-left: 24pt;
+    padding-right: 24pt;
 }
 
 .main-text p {
-    text-align: left;
+    text-align: center;
+}
+
+.main-text p a {
+    font-weight: bold;
+    color: #aaaaff;
+    text-decoration: none;
 }
