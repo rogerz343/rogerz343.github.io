@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>roger</title>
   <meta name="description" content="~ roger's page ~">
@@ -20,14 +21,13 @@
 
     // http://stackoverflow.com/a/3943023/112731
     return (r * 0.299 + g * 0.587 + b * 0.114) > 186
-        ? '#000000'
-        : '#ffffff';
-  
-      }
+      ? '#000000'
+      : '#ffffff';
+  }
   let color = "";
   let colors = ["#ccccf4",
-                "#ff9999",
-                "#444444"]
+    "#ff9999",
+    "#444444"]
   function changeBg() {
     let newColor = colors[Math.floor(colors.length * Math.random())];
     while (newColor == color) {
@@ -48,6 +48,7 @@
     for (let i = 0; i < ps.length; ++i) { ps[i].style.color = txtColor; }
   }
 </script>
+
 <body id="body-obj">
   <div class="main-container">
     <!-- <nav class="nav-bar-vert">
@@ -61,16 +62,16 @@
     <div class="container">
       <header id="big-name-header">
         <span class="big-letter" id="name_r1">r</span>
-        
+
         <script>
           let emoji = "./imgs/fb-crying-face.png";
           let emojiPaths = ["./imgs/fb-crying-face.png",
-                            "./imgs/fb-disappointed-face.png",
-                            "./imgs/fb-winking-face.png",
-                            "./imgs/fb-anxious-face.png",
-                            "./imgs/fb-confused-face.png",
-                            "./imgs/fb-raised-eyebrow-face.png",
-                            "./imgs/fb-slightly-frown-face.png"];
+            "./imgs/fb-disappointed-face.png",
+            "./imgs/fb-winking-face.png",
+            "./imgs/fb-anxious-face.png",
+            "./imgs/fb-confused-face.png",
+            "./imgs/fb-raised-eyebrow-face.png",
+            "./imgs/fb-slightly-frown-face.png"];
           function changeEmoji() {
             let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
             while (newEmoji == emoji) {
@@ -79,23 +80,17 @@
             emoji = newEmoji;
             document.getElementById("o-emoji").setAttribute("src", emoji);
           }
-          
+
           function changeEmojiTarget(newEmoji) {
             emoji = newEmoji;
             document.getElementById("o-emoji").setAttribute("src", emoji);
           }
         </script>
         <span class="big-letter" id="name_o">
-          <img
-               id="o-emoji"
-               style="transform: rotate(12deg)"
-               width="120"
-               height="120"
-               src="./imgs/fb-crying-face.png"
-               onclick="changeEmoji()"
-          >
+          <img id="o-emoji" style="transform: rotate(12deg)" width="120" height="120" src="./imgs/fb-crying-face.png"
+            onclick="changeEmoji()">
         </span>
-        
+
         <span class="big-letter" id="name_g">g</span>
         <span class="big-letter" id="name_e">e</span>
         <span class="big-letter" id="name_r2">r</span>
@@ -113,4 +108,5 @@
   changeBgTarget("#ccccf4");
   changeEmojiTarget("./imgs/fb-crying-face.png");
 </script>
+
 </html>
