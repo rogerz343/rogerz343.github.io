@@ -21,7 +21,31 @@
     <div class="container">
       <header id="big-name-header">
         <span class="big-letter" id="name_r1">r</span>
-        <span class="big-letter" id="name_o"><img style="transform: rotate(12deg)" src="./imgs/fb-crying-face.png"></span>
+        
+        <script>
+          let emojiPaths = ["./imgs/fb-crying-face.png",
+                            "./imgs/fb-disappointed-face.png",
+                            "./imgs/fb-winking-face.png",
+                            "./imgs/fb-anxious-face.png",
+                            "./imgs/fb-confused-face.png",
+                            "./imgs/fb-raised-eyebrow-face.png",
+                            "./imgs/fb-slightly-frown-face.png"];
+          let numPaths = emojiPaths.length;
+          function changeEmoji() {
+            document.getElementById("o-emoji").setAttribute("src", emojiPaths[Math.floor(numPaths * Math.random())]);
+          }
+        </script>
+        <span class="big-letter" id="name_o">
+          <img
+               id="o-emoji"
+               style="transform: rotate(12deg)"
+               width="120"
+               height="120"
+               src="./imgs/fb-crying-face.png"
+               onclick="changeEmoji()"
+          >
+        </span>
+        
         <span class="big-letter" id="name_g">g</span>
         <span class="big-letter" id="name_e">e</span>
         <span class="big-letter" id="name_r2">r</span>
