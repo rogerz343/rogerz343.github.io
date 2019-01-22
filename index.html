@@ -8,7 +8,39 @@
   <link rel="icon" href="./imgs/fb-winking-face.png">
   <link rel="stylesheet" type="text/css" href="./styles.css">
 </head>
-<body>
+<script>
+  /* copy-pasta from stack overflow */
+  function getTxtColor(hex) {
+    if (hex.indexOf('#') === 0) { hex = hex.slice(1); }
+    if (hex.length === 3) { hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]; }
+    if (hex.length !== 6) { throw new Error('Invalid HEX color.'); }
+    let r = parseInt(hex.slice(0, 2), 16);
+    let g = parseInt(hex.slice(2, 4), 16);
+    let b = parseInt(hex.slice(4, 6), 16);
+
+    // http://stackoverflow.com/a/3943023/112731
+    return (r * 0.299 + g * 0.587 + b * 0.114) > 186
+        ? '#000000'
+        : '#ffffff';
+  
+      }
+  let color = "#55bbf4";
+  let colors = ["#55bbf4",
+                "#ff9999",
+                "#000000"]
+  function changeBg() {
+    let newColor = colors[Math.floor(colors.length * Math.random())];
+    while (newColor == color) {
+      newColor = colors[Math.floor(colors.length * Math.random())];
+    }
+    color = newColor;
+    document.getElementById("body-obj").style.backgroundColor = color;
+    let txtColor = getTxtColor(color);
+    let ps = document.getElementsByTagName("p");
+    for (let i = 0; i < ps.length; ++i) { ps[i].style.color = txtColor; }
+  }
+</script>
+<body id="body-obj">
   <div class="main-container">
     <!-- <nav class="nav-bar-vert">
       <ul>
@@ -23,6 +55,7 @@
         <span class="big-letter" id="name_r1">r</span>
         
         <script>
+          let emoji = "./imgs/fb-crying-face.png";
           let emojiPaths = ["./imgs/fb-crying-face.png",
                             "./imgs/fb-disappointed-face.png",
                             "./imgs/fb-winking-face.png",
@@ -30,9 +63,18 @@
                             "./imgs/fb-confused-face.png",
                             "./imgs/fb-raised-eyebrow-face.png",
                             "./imgs/fb-slightly-frown-face.png"];
-          let numPaths = emojiPaths.length;
           function changeEmoji() {
-            document.getElementById("o-emoji").setAttribute("src", emojiPaths[Math.floor(numPaths * Math.random())]);
+            let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
+            while (newEmoji == emoji) {
+              newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
+            }
+            emoji = newEmoji;
+            document.getElementById("o-emoji").setAttribute("src", emoji);
+          }
+          
+          function changeEmoji(newEmoji) {
+            emoji = newEmoji
+            document.getElementById("o-emoji").setAttribute("src", emoji);
           }
         </script>
         <span class="big-letter" id="name_o">
@@ -52,11 +94,15 @@
       </header>
       <main class="main-text">
         <p>there's nothing on this page anymore</p>
-        <p>~ spooky ~</p>
+        <p onclick="changeBg()">~ spooky ~</p>
         <!-- <p>~ roger zhang ~</p>
         <p>~ senior in cs at <a href="https://www.upenn.edu/">penn</a> ~</p> -->
       </main>
     </div>
   </div>
 </body>
+<script>
+  changeBg();
+  changeEmoji("./imgs/fb-crying-face.png");
+</script>
 </html>
