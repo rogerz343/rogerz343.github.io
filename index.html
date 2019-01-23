@@ -51,57 +51,45 @@
 
 <body id="body-obj">
   <div class="main-container">
-    <!-- <nav class="nav-bar-vert">
-      <ul>
-        <li><a href="https://www.linkedin.com/in/rogerz343"><img src="./imgs/linkedin_48px.png" alt="LinkedIn" height="48" width="48" title="LinkedIn"></a></li>
-        <li><a href="https://www.github.com/rogerz343"><img src="./imgs/github_64px.png" alt="GitHub" height="48" width="48" title="GitHub"></a></li>
-        <li><a href="mailto:rogerz888@gmail.com"><img src="./imgs/gmail_64px.png" alt="Email" height="48" width="48" title="rogerz888@gmail.com"></a></li>
-        <li><a href="./roger_zhang_resume.pdf"><img src="./imgs/doc_225px.png" alt="Resume" height="48" width="48" title="Resume"></a></li>
-      </ul>
-    </nav> -->
-    <div class="container">
-      <header id="big-name-header">
-        <span class="big-letter" id="name_r1">r</span>
+    <header id="big-name-header">
+      <span class="big-letter" id="name_r1">r</span>
 
-        <script>
-          let emoji = "./imgs/fb-crying-face.png";
-          let emojiPaths = ["./imgs/fb-crying-face.png",
-            "./imgs/fb-disappointed-face.png",
-            "./imgs/fb-winking-face.png",
-            "./imgs/fb-anxious-face.png",
-            "./imgs/fb-confused-face.png",
-            "./imgs/fb-raised-eyebrow-face.png",
-            "./imgs/fb-slightly-frown-face.png"];
-          function changeEmoji() {
-            let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
-            while (newEmoji == emoji) {
-              newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
-            }
-            emoji = newEmoji;
-            document.getElementById("o-emoji").setAttribute("src", emoji);
+      <script>
+        let emoji = "./imgs/fb-crying-face.png";
+        let emojiPaths = ["./imgs/fb-crying-face.png",
+          "./imgs/fb-disappointed-face.png",
+          "./imgs/fb-winking-face.png",
+          "./imgs/fb-anxious-face.png",
+          "./imgs/fb-confused-face.png",
+          "./imgs/fb-raised-eyebrow-face.png",
+          "./imgs/fb-slightly-frown-face.png"];
+        function changeEmoji() {
+          let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
+          while (newEmoji == emoji) {
+            newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
           }
+          emoji = newEmoji;
+          document.getElementById("o-emoji").setAttribute("src", emoji);
+        }
 
-          function changeEmojiTarget(newEmoji) {
-            emoji = newEmoji;
-            document.getElementById("o-emoji").setAttribute("src", emoji);
-          }
-        </script>
-        <span class="big-letter" id="name_o">
-          <img id="o-emoji" style="transform: rotate(12deg)" width="120" height="120" src="./imgs/fb-crying-face.png"
-            onclick="changeEmoji()">
-        </span>
+        function changeEmojiTarget(newEmoji) {
+          emoji = newEmoji;
+          document.getElementById("o-emoji").setAttribute("src", emoji);
+        }
+      </script>
+      <span class="big-letter" id="name_o">
+        <img id="o-emoji" style="transform: rotate(12deg)" width="120" height="120" src="./imgs/fb-crying-face.png"
+          onclick="changeEmoji()">
+      </span>
 
-        <span class="big-letter" id="name_g">g</span>
-        <span class="big-letter" id="name_e">e</span>
-        <span class="big-letter" id="name_r2">r</span>
-      </header>
-      <main class="main-text">
-        <p>there's nothing on this page anymore</p>
-        <p onclick="changeBg()">~ spooky ~</p>
-        <!-- <p>~ roger zhang ~</p>
-        <p>~ senior in cs at <a href="https://www.upenn.edu/">penn</a> ~</p> -->
-      </main>
-    </div>
+      <span class="big-letter" id="name_g">g</span>
+      <span class="big-letter" id="name_e">e</span>
+      <span class="big-letter" id="name_r2">r</span>
+    </header>
+    <main class="main-text">
+      <p>there's nothing on this page anymore</p>
+      <p onclick="changeBg()">~ spooky ~</p>
+    </main>
   </div>
 </body>
 <script>
