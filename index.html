@@ -3,14 +3,16 @@
 
 <head>
   <title>roger</title>
-  <meta name="description" content="~ roger zhang upenn seas cool page ~">
+  <meta name="description" content="cool website">
 
   <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
   <link rel="icon" href="./imgs/fb-winking-face.png">
   <link rel="stylesheet" type="text/css" href="./styles.css">
+  <link rel="preload" as="image" href="imgs/nasa_webb_early_galaxies.png">
 </head>
 <script>
-  /* copy-pasta from stack overflow */
+  // Given background color, returns whether text should be black or white.
+  // http://stackoverflow.com/a/3943023/112731
   function getTxtColor(hex) {
     if (hex.indexOf('#') === 0) { hex = hex.slice(1); }
     if (hex.length === 3) { hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]; }
@@ -19,33 +21,73 @@
     let g = parseInt(hex.slice(2, 4), 16);
     let b = parseInt(hex.slice(4, 6), 16);
 
-    // http://stackoverflow.com/a/3943023/112731
     return (r * 0.299 + g * 0.587 + b * 0.114) > 186
       ? '#000000'
       : '#ffffff';
   }
-  let color = "";
-  let colors = ["#ccccf4",
-    "#ff9999",
-    "#444444"]
-  function changeBg() {
-    let newColor = colors[Math.floor(colors.length * Math.random())];
-    while (newColor == color) {
-      newColor = colors[Math.floor(colors.length * Math.random())];
-    }
-    color = newColor;
-    document.getElementById("body-obj").style.backgroundColor = color;
-    let txtColor = getTxtColor(color);
-    let ps = document.getElementsByTagName("p");
-    for (let i = 0; i < ps.length; ++i) { ps[i].style.color = txtColor; }
-  }
 
-  function changeBgTarget(newColor) {
-    color = newColor;
-    document.getElementById("body-obj").style.backgroundColor = color;
-    let txtColor = getTxtColor(color);
-    let ps = document.getElementsByTagName("p");
-    for (let i = 0; i < ps.length; ++i) { ps[i].style.color = txtColor; }
+  let backgrounds = [
+    { type: "color", value: "#ccccf4" },
+    { type: "color", value: "#ff9999" },
+    { type: "color", value: "#444444" },
+    { type: "image", value: "imgs/nasa_webb_cosmic_cliffs.jpg" },
+    { type: "image", value: "imgs/nasa_webb_early_galaxies.jpg" },
+    { type: "image", value: "imgs/nasa_webb_spiderweb.jpg" },
+    { type: "image", value: "imgs/nasa_hubble_ngc_460.jpg" },
+  ];
+  let currentBg;
+
+  let imagePaths = [
+    "imgs/nasa_webb_cosmic_cliffs.jpg",
+    "imgs/nasa_webb_early_galaxies.jpg",
+    "imgs/nasa_webb_spiderweb.jpg",
+    "imgs/nasa_hubble_ngc_460.jpg"
+  ];
+  imagePaths.forEach(src => {
+    let img = new Image();
+    img.src = src;
+  });
+
+  function changeBg(targetIndex) {
+    let newBg;
+    if (targetIndex !== undefined) {
+      newBg = backgrounds[targetIndex];
+    } else {
+      newBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+      while (newBg === currentBg) {
+        newBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+      }
+    }
+    currentBg = newBg;
+
+    let body = document.getElementById("body-obj");
+
+    if (newBg.type === "color") {
+      body.style.backgroundColor = newBg.value;
+      body.style.backgroundImage = "none";
+
+      let txtColor = getTxtColor(newBg.value);
+      let ps = document.getElementsByTagName("p");
+      for (let i = 0; i < ps.length; i++) {
+        ps[i].style.color = txtColor;
+      }
+    } else if (newBg.type === "image") {
+      let img = new Image();
+      img.src = newBg.value;
+      img.onload = function () {
+        body.style.backgroundImage = `url(${newBg.value})`;
+        body.style.backgroundSize = "cover";
+        body.style.backgroundPosition = "center";
+        body.style.backgroundRepeat = "no-repeat";
+        body.style.backgroundAttachment = "fixed"
+      };
+
+      // White text since images are just space.
+      let ps = document.getElementsByTagName("p");
+      for (let i = 0; i < ps.length; i++) {
+        ps[i].style.color = "#ffffff";
+      }
+    }
   }
 </script>
 
@@ -56,13 +98,15 @@
 
       <script>
         let emoji = "./imgs/fb-crying-face.png";
-        let emojiPaths = ["./imgs/fb-crying-face.png",
+        let emojiPaths = [
+          "./imgs/fb-crying-face.png",
           "./imgs/fb-disappointed-face.png",
           "./imgs/fb-winking-face.png",
           "./imgs/fb-anxious-face.png",
           "./imgs/fb-confused-face.png",
           "./imgs/fb-raised-eyebrow-face.png",
-          "./imgs/fb-slightly-frown-face.png"];
+          "./imgs/fb-slightly-frown-face.png"
+        ];
         function changeEmoji() {
           let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
           while (newEmoji == emoji) {
@@ -87,13 +131,12 @@
       <span class="big-letter" id="name_r2">r</span>
     </header>
     <main class="main-text">
-      <p>there's nothing on this page anymore</p>
-      <p onclick="changeBg()">~ spooky ~</p>
+      <p onclick="changeBg()">wandering through the universe</p>
     </main>
   </div>
 </body>
 <script>
-  changeBgTarget("#ccccf4");
+  changeBg(4);
   changeEmojiTarget("./imgs/fb-crying-face.png");
 </script>
 
