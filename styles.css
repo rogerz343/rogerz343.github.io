@@ -1,33 +1,51 @@
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
 }
 
+/* fullscreen flex container */
 #body-obj {
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh;
+    /* mobile-safe */
+
+    display: flex;
+    align-items: center;
+    /* vertical center */
+    justify-content: center;
+    /* horizontal center */
 }
 
 .main-container {
-    width: 700px;
-    padding-top: 16vh;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 16px;
+
+    /* closer to top than bottom */
+    transform: translateY(-20vh);
 }
 
 #big-name-header {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* horizontal spacing of letters */
+    gap: clamp(16px, 3vw, 32px);
+    margin-bottom: clamp(16px, 4vh, 32px);
 }
 
 .big-letter {
     display: inline-block;
-    font-size: 96pt;
+    font-size: clamp(64px, 12vw, 96px);
     font-weight: bold;
-    margin-left: 24pt;
-    margin-right: 24pt;
 }
 
 #name_r1 {
@@ -38,6 +56,11 @@ body {
 #name_o {
     color: #ffa500;
     transform: rotate(0deg);
+}
+
+#name_o img {
+    width: clamp(48px, 12vw, 96px);
+    height: auto;
 }
 
 #name_g {
@@ -55,17 +78,27 @@ body {
     transform: rotate(356deg);
 }
 
-.main-text {
-    padding-left: 24pt;
-    padding-right: 24pt;
-}
-
 .main-text p {
-    text-align: center;
+    margin: 0;
+    font-size: clamp(14px, 2.5vw, 18px);
 }
 
 .main-text p a {
     font-weight: bold;
     color: #aaaaff;
     text-decoration: none;
+}
+
+#floating-penguin {
+    /* hide until setup is done */
+    opacity: 0;
+    position: absolute;
+    width: clamp(80px, 10vw, 120px);
+    height: auto;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transform-origin: center center;
+    will-change: transform, top, left;
+    /* transition: transform 0.1s linear; */
 }
