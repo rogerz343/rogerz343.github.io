@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
   <link rel="icon" href="./imgs/fb-winking-face.png">
   <link rel="stylesheet" type="text/css" href="./styles.css">
-  <link rel="preload" as="image" href="imgs/nasa_webb_early_galaxies.png">
 </head>
 <script>
   // Given background color, returns whether text should be black or white.
@@ -27,13 +26,14 @@
   }
 
   let backgrounds = [
-    { type: "color", value: "#ccccf4" },
-    { type: "color", value: "#ff9999" },
-    { type: "color", value: "#444444" },
     { type: "image", value: "imgs/nasa_webb_cosmic_cliffs.jpg" },
     { type: "image", value: "imgs/nasa_webb_early_galaxies.jpg" },
     { type: "image", value: "imgs/nasa_webb_spiderweb.jpg" },
     { type: "image", value: "imgs/nasa_hubble_ngc_460.jpg" },
+    // TODO: maybe just remove plain color backgrounds
+    // { type: "color", value: "#ccccf4" },
+    // { type: "color", value: "#ff9999" },
+    // { type: "color", value: "#444444" },
   ];
   let currentBg;
 
@@ -82,7 +82,7 @@
         body.style.backgroundAttachment = "scroll"
       };
 
-      // White text since images are just space.
+      // white text since images are mostly dark space
       let ps = document.getElementsByTagName("p");
       for (let i = 0; i < ps.length; i++) {
         ps[i].style.color = "#ffffff";
@@ -135,139 +135,113 @@
       <p onclick="changeBg()">wandering through the universe</p>
     </main>
   </div>
-  <img id="floating-penguin" src="./imgs/penguin.png" alt="penguin" />
+  <img id="floating-penguin" src='./imgs/penguin.png' alt="penguin" />
 </body>
 <script>
-  changeBg(4);
+  changeBg(1);
   changeEmojiTarget("./imgs/fb-crying-face.png");
 </script>
 <script>
-  //
-  // for this entire section, sides [0, 1, 2, 3] are [top, right, bottom, left]
+  // state variables
+  const penguin = document.getElementById('floating-penguin');
+  let pos = { x: 0, y: 0 };
+  let velocity = { x: 0, y: 0 };
+  let rotation = 0;
+  let rotationSpeed = 0;
+  let isActive = false;
+  let respawnTime = performance.now() + 1000;
+  let lastTime = performance.now();
+
   function spawnOffscreen() {
     const side = Math.floor(Math.random() * 4);
-
-    // avoid spawning too close to a corner, which could result in
-    // the penguin only being on screen for a short amount of time
     const marginX = window.innerWidth * 0.15;
     const marginY = window.innerHeight * 0.15;
-
     let x, y;
 
-    if (side === 0) {
-      x = marginX + Math.random() * (window.innerWidth - 2 * marginX);
-      y = -penguin.height;
-    } else if (side === 1) {
-      x = window.innerWidth;
-      y = marginY + Math.random() * (window.innerHeight - 2 * marginY);
-    } else if (side === 2) {
-      x = marginX + Math.random() * (window.innerWidth - 2 * marginX);
-      y = window.innerHeight;
-    } else {
-      x = -penguin.width;
-      y = marginY + Math.random() * (window.innerHeight - 2 * marginY);
-    }
+    if (side === 0) { x = marginX + Math.random() * (window.innerWidth - 2 * marginX); y = -penguin.height; }
+    else if (side === 1) { x = window.innerWidth; y = marginY + Math.random() * (window.innerHeight - 2 * marginY); }
+    else if (side === 2) { x = marginX + Math.random() * (window.innerWidth - 2 * marginX); y = window.innerHeight; }
+    else { x = -penguin.width; y = marginY + Math.random() * (window.innerHeight - 2 * marginY); }
 
     return { x, y, side };
   }
 
-  // based on current side, go roughly towards opposite side
-  function velocityFromSide(x, y, side) {
-    const speed = 1 + Math.random();
+  function velocityFromSide(side) {
+    // base speed scales with screen diagonal (~pixels/sec)
+    const baseSpeed = 150 + Math.random() * 100;
+    const diagonal = Math.sqrt(window.innerWidth ** 2 + window.innerHeight ** 2);
+    const speed = baseSpeed * (diagonal / 2560);
 
     let vx = 0, vy = 0;
+    if (side === 0) { vx = (Math.random() - 0.5); vy = 1; }
+    else if (side === 1) { vx = -1; vy = (Math.random() - 0.5); }
+    else if (side === 2) { vx = (Math.random() - 0.5); vy = -1; }
+    else { vx = 1; vy = (Math.random() - 0.5); }
 
-    if (side === 0) {
-      vx = (Math.random() - 0.5);
-      vy = Math.random();
-    } else if (side === 1) {
-      vx = -Math.random();
-      vy = (Math.random() - 0.5);
-    } else if (side === 2) {
-      vx = (Math.random() - 0.5);
-      vy = -Math.random();
-    } else {
-      vx = Math.random();
-      vy = (Math.random() - 0.5);
-    }
-
-    // slight bias inward to avoid situation where we
-    // just float near the border at shallow angle
+    // slight inward bias
     vx += (Math.random() - 0.5) * 0.3;
     vy += (Math.random() - 0.5) * 0.3;
 
-    // normalize
-    let len = Math.sqrt(vx * vx + vy * vy);
-    return {
-      x: (vx / len) * speed,
-      y: (vy / len) * speed
-    };
+    const len = Math.sqrt(vx * vx + vy * vy);
+    return { x: (vx / len) * speed, y: (vy / len) * speed };
+  }
+
+  function getRandomRotationSpeed() {
+    const minRotationSpeed = 10
+    const maxRotationSpeed = 90;
+    const rotationDirection = Math.random() < 0.5 ? -1 : 1;
+    return rotationDirection * (Math.random() * (maxRotationSpeed - minRotationSpeed) + minRotationSpeed);
   }
 
   function isOffscreen() {
-    return (
-      pos.x > window.innerWidth ||
-      pos.x < -penguin.width ||
-      pos.y > window.innerHeight ||
-      pos.y < -penguin.height
-    );
+    return pos.x > window.innerWidth || pos.x < -penguin.width ||
+      pos.y > window.innerHeight || pos.y < -penguin.height;
   }
 
-  function movePenguin() {
-    if (isActive && isOffscreen()) {
-      isActive = false;
-      penguin.style.opacity = 0;
-      respawnTime = performance.now() + (1000 + Math.random() * 2000);
-    }
+  function movePenguin(currentTime) {
+    const dt = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
 
-    if (!isActive) {
-      if (performance.now() >= respawnTime) {
-        const spawn = spawnOffscreen();
+    if (isActive) {
+      pos.x += velocity.x * dt;
+      pos.y += velocity.y * dt;
+      rotation += rotationSpeed * dt;
 
-        pos.x = spawn.x;
-        pos.y = spawn.y;
-        velocity = velocityFromSide(pos.x, pos.y, spawn.side);
-        rotationSpeed = (Math.random() - 0.5) * 0.5;
+      penguin.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`;
 
-        penguin.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`;
-        penguin.style.opacity = 1;
-        isActive = true;
+      if (isOffscreen()) {
+        isActive = false;
+        penguin.style.opacity = 0;
+        respawnTime = performance.now() + 1000 + Math.random() * 2000;
       }
-
-      requestAnimationFrame(movePenguin);
-      return;
+    } else if (performance.now() >= respawnTime) {
+      const spawn = spawnOffscreen();
+      pos = { x: spawn.x, y: spawn.y };
+      velocity = velocityFromSide(spawn.side);
+      rotation = Math.random() * 360;
+      rotationSpeed = getRandomRotationSpeed()
+      penguin.style.opacity = 1;
+      isActive = true;
     }
-
-    pos.x += velocity.x;
-    pos.y += velocity.y;
-    rotation += rotationSpeed;
-    penguin.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`;
 
     requestAnimationFrame(movePenguin);
   }
 
-  //
-  // state variables
-  //
-
-  // start offscreen and wait a bit before first appearing
-  let isActive = false;
-  let respawnTime = performance.now() + 1000;
-
-  // start animation once image is loaded
-  const penguin = document.getElementById('floating-penguin');
+  // start and make visible only after image loads
   penguin.onload = () => {
     const spawn = spawnOffscreen();
-
     pos = { x: spawn.x, y: spawn.y };
-    velocity = velocityFromSide(pos.x, pos.y, spawn.side);
+    velocity = velocityFromSide(spawn.side);
     rotation = Math.random() * 360;
-    rotationSpeed = (Math.random() - 0.5) * 0.5;
-
-    movePenguin();
+    rotationSpeed = getRandomRotationSpeed();
+    lastTime = performance.now();
+    // apply the position *before* making it visible
+    penguin.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${rotation}deg)`;
+    penguin.style.opacity = 1;
+    requestAnimationFrame(movePenguin);
   };
 
-  // Recalculate penguin size on window resize
+  // recalculate positions on window resize
   window.addEventListener('resize', () => {
     pos.x = Math.min(pos.x, window.innerWidth - 10);
     pos.y = Math.min(pos.y, window.innerHeight - 10);

@@ -100,5 +100,4 @@ body {
     pointer-events: none;
     transform-origin: center center;
     will-change: transform, top, left;
-    /* transition: transform 0.1s linear; */
 }
