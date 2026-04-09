@@ -100,12 +100,10 @@
         let emoji = "./imgs/fb-crying-face.png";
         let emojiPaths = [
           "./imgs/fb-crying-face.png",
-          "./imgs/fb-disappointed-face.png",
           "./imgs/fb-winking-face.png",
           "./imgs/fb-anxious-face.png",
           "./imgs/fb-confused-face.png",
           "./imgs/fb-raised-eyebrow-face.png",
-          "./imgs/fb-slightly-frown-face.png"
         ];
         function changeEmoji() {
           let newEmoji = emojiPaths[Math.floor(emojiPaths.length * Math.random())]
@@ -245,6 +243,28 @@
   window.addEventListener('resize', () => {
     pos.x = Math.min(pos.x, window.innerWidth - 10);
     pos.y = Math.min(pos.y, window.innerHeight - 10);
+  });
+
+  // click/tap slightly changes direction
+  penguin.addEventListener('pointerdown', (e) => {
+    if (!isActive) {
+      return;
+    }
+
+    // keep speed but change direction so it looks like
+    // slight deflection from original path
+    const speed = Math.sqrt(velocity.x ** 2 + velocity.y ** 2);
+    const currentAngle = Math.atan2(velocity.y, velocity.x);
+    const minDeflect = 10;
+    const maxDeflect = 45;
+    const deflectionAmount = (Math.random() * (maxDeflect - minDeflect) + minDeflect) * (Math.PI / 180);
+    const side = Math.random() < 0.5 ? -1 : 1;
+    const newAngle = currentAngle + side * deflectionAmount;
+    velocity.x = Math.cos(newAngle) * speed;
+    velocity.y = Math.sin(newAngle) * speed;
+
+    // set new random rotation speed and direction
+    rotationSpeed = getRandomRotationSpeed();
   });
 </script>
 

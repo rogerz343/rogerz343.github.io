@@ -97,7 +97,8 @@ body {
     height: auto;
     top: 0;
     left: 0;
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     transform-origin: center center;
     will-change: transform, top, left;
 }
