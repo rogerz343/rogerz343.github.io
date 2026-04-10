@@ -93,7 +93,7 @@ body {
     /* hide until setup is done */
     opacity: 0;
     position: absolute;
-    width: clamp(80px, 10vw, 120px);
+    width: clamp(120px, 20vw, 200px);
     height: auto;
     top: 0;
     left: 0;
