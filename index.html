@@ -186,7 +186,7 @@
 
   function getRandomRotationSpeed() {
     const minRotationSpeed = 10
-    const maxRotationSpeed = 90;
+    const maxRotationSpeed = 60;
     const rotationDirection = Math.random() < 0.5 ? -1 : 1;
     return rotationDirection * (Math.random() * (maxRotationSpeed - minRotationSpeed) + minRotationSpeed);
   }
